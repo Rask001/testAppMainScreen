@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		3A328FB528F8B2CB0078FFEA /* OtherScreens.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A328FB428F8B2CB0078FFEA /* OtherScreens.swift */; };
+		3A328FB728F9ADC90078FFEA /* json.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A328FB628F9ADC80078FFEA /* json.json */; };
+		3A328FB928F9AFD70078FFEA /* ProductModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A328FB828F9AFD70078FFEA /* ProductModel.swift */; };
+		3A328FBB28F9DF780078FFEA /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A328FBA28F9DF780078FFEA /* NetworkService.swift */; };
 		3A3AE15F28F823DB00618442 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A3AE15E28F823DB00618442 /* AppDelegate.swift */; };
 		3A3AE16128F823DB00618442 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A3AE16028F823DB00618442 /* SceneDelegate.swift */; };
 		3A3AE16328F823DB00618442 /* MainScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A3AE16228F823DB00618442 /* MainScreen.swift */; };
@@ -27,6 +30,9 @@
 
 /* Begin PBXFileReference section */
 		3A328FB428F8B2CB0078FFEA /* OtherScreens.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherScreens.swift; sourceTree = "<group>"; };
+		3A328FB628F9ADC80078FFEA /* json.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = json.json; path = ../../../../../Downloads/json.json; sourceTree = "<group>"; };
+		3A328FB828F9AFD70078FFEA /* ProductModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductModel.swift; sourceTree = "<group>"; };
+		3A328FBA28F9DF780078FFEA /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		3A3AE15B28F823DB00618442 /* testAppMainScreen.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = testAppMainScreen.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A3AE15E28F823DB00618442 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3A3AE16028F823DB00618442 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -65,6 +71,22 @@
 			path = OtherScreen;
 			sourceTree = "<group>";
 		};
+		3A328FBC28F9E4240078FFEA /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				3A328FBA28F9DF780078FFEA /* NetworkService.swift */,
+			);
+			path = Networking;
+			sourceTree = "<group>";
+		};
+		3A328FBD28F9E4360078FFEA /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				3A328FB828F9AFD70078FFEA /* ProductModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		3A3AE15228F823DB00618442 = {
 			isa = PBXGroup;
 			children = (
@@ -89,6 +111,8 @@
 				3A9BAB8228F8AD3E007B3394 /* TabBarController.swift */,
 				3A9BAB7B28F88329007B3394 /* Assembly.swift */,
 				3A9BAB7A28F88329007B3394 /* Coordinator.swift */,
+				3A328FBD28F9E4360078FFEA /* Model */,
+				3A328FBC28F9E4240078FFEA /* Networking */,
 				3A3AE16028F823DB00618442 /* SceneDelegate.swift */,
 				3A9BAB7E28F88357007B3394 /* MainScreen */,
 				3A328FB328F8B29D0078FFEA /* OtherScreen */,
@@ -97,6 +121,7 @@
 				3A3AE16728F823DD00618442 /* Assets.xcassets */,
 				3A3AE16928F823DD00618442 /* LaunchScreen.storyboard */,
 				3A3AE16C28F823DD00618442 /* Info.plist */,
+				3A328FB628F9ADC80078FFEA /* json.json */,
 			);
 			path = testAppMainScreen;
 			sourceTree = "<group>";
@@ -195,6 +220,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3A328FB728F9ADC90078FFEA /* json.json in Resources */,
 				3A3AE16B28F823DD00618442 /* LaunchScreen.storyboard in Resources */,
 				3A3AE16828F823DD00618442 /* Assets.xcassets in Resources */,
 			);
@@ -211,11 +237,13 @@
 				3A9BAB8328F8AD3E007B3394 /* TabBarController.swift in Sources */,
 				3A9BAB7D28F88329007B3394 /* Assembly.swift in Sources */,
 				3A9BAB8128F88766007B3394 /* CategoryView.swift in Sources */,
+				3A328FB928F9AFD70078FFEA /* ProductModel.swift in Sources */,
 				3A3AE15F28F823DB00618442 /* AppDelegate.swift in Sources */,
 				3A9BAB7628F8559E007B3394 /* CollectionViewCell.swift in Sources */,
 				3A328FB528F8B2CB0078FFEA /* OtherScreens.swift in Sources */,
 				3A3AE17528F8285C00618442 /* CustomCell.swift in Sources */,
 				3A9BAB7928F85C31007B3394 /* CollectionModel.swift in Sources */,
+				3A328FBB28F9DF780078FFEA /* NetworkService.swift in Sources */,
 				3A9BAB7C28F88329007B3394 /* Coordinator.swift in Sources */,
 				3A3AE16128F823DB00618442 /* SceneDelegate.swift in Sources */,
 				3A9BAB7228F85357007B3394 /* CollectionView.swift in Sources */,

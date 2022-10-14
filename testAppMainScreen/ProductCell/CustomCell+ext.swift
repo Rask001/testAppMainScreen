@@ -14,6 +14,7 @@ extension CustomCell {
 	
 	internal func makeTitleLabel() -> UILabel {
 		let label = UILabel()
+		label.numberOfLines = 2
 		label.text = "Ветчина и грибы"
 		return label
 	}

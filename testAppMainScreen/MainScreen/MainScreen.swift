@@ -9,6 +9,7 @@ import UIKit
 
 fileprivate enum Constants {
 	static var tableViewRowHeight: CGFloat { 156 }
+	static var urlString = "https://my-json-server.typicode.com/Rask001/testAppMainScreen/items"
 }
 
 class MainScreen: UIViewController {
@@ -19,7 +20,9 @@ class MainScreen: UIViewController {
 	private let scrollView = UIScrollView()
 	private let stackView = UIStackView()
 	private var lastSelectedButton = UIButton()
-	private let buttonCategoryArray = ["Пицца", "Комбо", "Десерты", "Напитки"]
+	private let buttonCategoryArray = ["Бургеры", "Комбо", "Десерты", "Напитки"]
+	private let networkService = NetworkService()
+	private var product = [Product]()
 	
 	
 	//MARK: - Init
@@ -33,6 +36,20 @@ class MainScreen: UIViewController {
 		setupStackView()
 		collectionView.set(cells: CollectionModel.fetchArray())
 		createScrollView()
+		
+		networkService.fetchRequest(urlString: Constants.urlString) { [weak self] result in
+			guard let self = self else { return }
+			switch result{
+			case .success(let product):
+				self.product = product
+				DispatchQueue.main.async {
+					self.tableView.reloadData()
+				}
+				print(product.count)
+			case .failure(let error):
+				print(error)
+			}
+		}
 	}
 	
 	//MARK: - Setup
@@ -98,6 +115,10 @@ class MainScreen: UIViewController {
 		sender.backgroundColor = UIColor(named: "BorderColor20")
 		sender.layer.borderWidth = 0
 		print(sender.tag)
+		//self.scrollView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor).isActive = true
+//		UIView.animate(withDuration: 0.5) {
+//			self.view.layoutIfNeeded()
+//		}
 	}
 
 
@@ -112,24 +133,27 @@ class MainScreen: UIViewController {
 		self.tableView.rowHeight = Constants.tableViewRowHeight
 		self.tableView.isScrollEnabled = true
 		self.tableView.allowsSelection = false
-		self.tableView.scrollRectToVisible(<#T##rect: CGRect##CGRect#>, animated: <#T##Bool#>)
+		//self.tableView.scrollRectToVisible(<#T##rect: CGRect##CGRect#>, animated: <#T##Bool#>)
 		self.tableView.contentInset = UIEdgeInsets(top: 24, left: 0, bottom: 0, right: 0)
 	}
 	
 
 	//MARK: - AddSubViews
-	private func addSubview() {
-		self.view.addSubview(tableView)
-		self.view.addSubview(collectionView)
-		self.view.addSubview(scrollView)
-		scrollView.addSubview(stackView)
-	}
+	
+		private func addSubview() {
+			self.view.addSubview(tableView)
+			self.view.addSubview(collectionView)
+			self.view.addSubview(scrollView)
+			scrollView.addSubview(stackView)
+		}
 	
 	
 	//MARK: - Constraints
 	private func setConstraints() {
 		self.tableView.translatesAutoresizingMaskIntoConstraints = false
+		//self.tableView.topAnchor.constraint(equalTo: self.scrollView.bottomAnchor).isActive = true
 		self.tableView.heightAnchor.constraint(greaterThanOrEqualToConstant: 516).isActive = true
+		
 		self.tableView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
 		self.tableView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
 		self.tableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
@@ -139,6 +163,8 @@ class MainScreen: UIViewController {
 		self.collectionView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
 		self.collectionView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
 		self.collectionView.heightAnchor.constraint(equalToConstant: 136).isActive = true //136
+		//self.collectionView.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
+		self.collectionView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor).isActive = true
 		//self.collectionView.heightAnchor.constraint(equalToConstant: 112).isActive = true
 		
 		self.stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -149,20 +175,43 @@ class MainScreen: UIViewController {
 		
 		self.scrollView.translatesAutoresizingMaskIntoConstraints = false
 		self.scrollView.bottomAnchor.constraint(equalTo: self.tableView.topAnchor).isActive = true
-		self.scrollView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
+		//self.scrollView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
 		self.scrollView.widthAnchor.constraint(equalTo: self.view.widthAnchor).isActive = true
+		self.scrollView.topAnchor.constraint(equalTo: self.collectionView.bottomAnchor).isActive = true
 		self.scrollView.heightAnchor.constraint(equalToConstant: 80).isActive = true
 	}
 
 }
 //MARK: - extension
-extension MainScreen: UITableViewDelegate, UITableViewDataSource {
+extension MainScreen: UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate {
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		8
+		return self.product.count
 	}
 	
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let cell = tableView.dequeueReusableCell(withIdentifier: CustomCell.identifier, for: indexPath) as! CustomCell
+		let item = product[indexPath.row]
+		cell.titleLabel.text = item.name
+		cell.descript.text = item.description
+		cell.buttonPrice.text = "oт \(item.price) р"
 		return cell
+	}
+
+	
+	func scrollViewWillBeginDecelerating(_ scrollView: UIScrollView) {
+		
+		//self.collectionView.heightAnchor.constraint(equalToConstant: 0).isActive = true
+//		self.scrollView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor).isActive = true
+		UIView.animate(withDuration: 1) {
+			self.view.layoutIfNeeded()
+		}
+		print("start scroll")
+	}
+	func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+		//self.collectionView.heightAnchor.constraint(equalToConstant: 136).isActive = true
+		UIView.animate(withDuration: 1) {
+			self.view.layoutIfNeeded()
+		}
+		print("scroll end")
 	}
 }
