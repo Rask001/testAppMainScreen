@@ -1,33 +1,50 @@
 [
-{
-"price": 189,
-"name": "Гранд Де Люкс",
-"description": "Сочный бифштекс из натуральной говядины приготовленный на гриле",
-"image": "https...",
-"category": "Бургеры"
-},
-
-{
-"price": 366,
-"name": "Шримп Ролл Комбо",
-"description": "Сочный бифштекс из натуральной говядины приготовленный на гриле",
-"image": "https...",
-"category": "Комбо"
-},
-
-{
-"price": 85,
-"name": "Апельсиновый сок",
-"description": "свежевыжатый апельсиновый сок",
-"image": "https...",
-"category": "Напитки"
-},
-
-{
-"price": 59,
-"name": "Пирожок вишневый",
-"description": "осторожно горячий!",
-"image": "https...",
-"category": "Десерты"
-}
+  {
+    "index": 0,
+    "name": "text",
+    "description": "text",
+    "price": 489,
+    "image": "http://placehold.it/32x32",
+    "category": "text"
+  },
+  {
+    "index": 1,
+    "name": "text",
+    "description": "text",
+    "price": 131,
+    "image": "http://placehold.it/32x32",
+    "category": "text"
+  },
+  {
+    "index": 2,
+    "name": "text",
+    "description": "text",
+    "price": 231,
+    "image": "http://placehold.it/32x32",
+    "category": "text"
+  },
+  {
+    "index": 3,
+    "name": "text",
+    "description": "text",
+    "price": 465,
+    "image": "http://placehold.it/32x32",
+    "category": "text"
+  },
+  {
+    "index": 4,
+    "name": "text",
+    "description": "text",
+    "price": 158,
+    "image": "http://placehold.it/32x32",
+    "category": "text"
+  },
+  {
+    "index": 5,
+    "name": "text",
+    "description": "text",
+    "price": 351,
+    "image": "http://placehold.it/32x32",
+    "category": "text"
+  }
 ]
