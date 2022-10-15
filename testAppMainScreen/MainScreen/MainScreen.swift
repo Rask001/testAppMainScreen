@@ -288,14 +288,14 @@ extension MainScreen: UIScrollViewDelegate {
 		
 		self.collectionView.heightAnchor.constraint(equalToConstant: 0).isActive = true
 		//		self.scrollView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor).isActive = true
-		UIView.animate(withDuration: 1) {
+		UIView.animate(withDuration: 0.4) {
 			self.view.layoutIfNeeded()
 		}
 		print("start scroll")
 	}
 	func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
 		self.collectionView.heightAnchor.constraint(equalToConstant: 136).isActive = true
-		UIView.animate(withDuration: 1) {
+		UIView.animate(withDuration: 0.4) {
 			self.view.layoutIfNeeded()
 		}
 		print("scroll end")
