@@ -10,9 +10,9 @@ import UIKit
 
 class Contacts: UIViewController {
 	override func viewDidLoad() {
+		super.viewDidLoad()
 		title = "Контакты"
 		view.backgroundColor = .gray
-		super.viewDidLoad()
 	}
 }
 

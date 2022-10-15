@@ -7,11 +7,6 @@
 
 import Foundation
 
-//struct MenuData: Codable {
-//	var items: [Product]
-//}
-
-
 struct Product: Codable {
 	var name: String
 	var description: String

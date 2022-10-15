@@ -6,11 +6,18 @@
 //
 
 import UIKit
+import SDWebImage
 
 fileprivate enum Constants {
 	static var tableViewRowHeight: CGFloat { 156 }
 	static var urlString = "https://my-json-server.typicode.com/Rask001/testAppMainScreen/items"
-	static var buttonCategoryArray = ["Бургеры", "Комбо", "Десерты", "Напитки"]
+	static var burgers = "Бургеры"
+	static var combo = "Комбо"
+	static var deserts = "Десерты"
+	static var drinks = "Напитки"
+	static var borderColor = UIColor(named: "BorderColor")
+	static var borderColor20 = UIColor(named: "BorderColor20")
+	static var borderColor40 = UIColor(named: "BorderColor40")
 }
 
 class MainScreen: UIViewController {
@@ -21,13 +28,19 @@ class MainScreen: UIViewController {
 	private let scrollView = UIScrollView()
 	private let stackView = UIStackView()
 	private var lastSelectedButton = UIButton()
-	private let networkService = NetworkService()
+	private var buttonCategoryArray = [Constants.burgers, Constants.combo, Constants.deserts, Constants.drinks]
+	private let networkDataFetcher = NetworkDataFetcher()
 	private var product = [Product]()
 	private var burgers = [Product]()
 	private var combo = [Product]()
 	private var drinks = [Product]()
 	private var dessert = [Product]()
 	private var sectionStruct = [SectionStruct]()
+	
+	lazy var cahedataSource: NSCache<AnyObject, UIImage> = {
+		let cache = NSCache<AnyObject, UIImage>()
+		return cache
+	}()
 	
 	//MARK: - Init
 	override func viewDidLoad() {
@@ -41,26 +54,38 @@ class MainScreen: UIViewController {
 		collectionView.set(cells: CollectionModel.fetchArray())
 		createScrollView()
 		fetchData()
+	  navItem()
+		
+	}
+	
+	private func navItem() {
+		let rightButtonItem = UIBarButtonItem(
+			title: "Москва ▼",
+			style: .done,
+			target: self,
+			action: #selector(leftNavItem)
+		)
+		self.navigationItem.leftBarButtonItem = rightButtonItem
+		self.navigationItem.leftBarButtonItem?.tintColor = .black
+	}
+	@objc func leftNavItem() {
+		
 	}
 	
 	private func fetchData() {
-		networkService.fetchRequest(urlString: Constants.urlString) { [weak self] result in
+		self.networkDataFetcher.fetchProducts(urlString: Constants.urlString) { [weak self] res in
 			guard let self = self else { return }
-			switch result{
-			case .success(let product):
-				self.product = product
-				DispatchQueue.main.async {
-					self.arraySection()
-					self.sectionStruct = [ SectionStruct(header: "Бургеры", row: self.burgers),
-																 SectionStruct(header: "Комбо", row: self.combo),
-																 SectionStruct(header: "Десерты" , row: self.dessert),
-																 SectionStruct(header: "Напитки", row: self.drinks)
-															 ]
-					print(self.sectionStruct)
-					self.tableView.reloadData()
-				}
-			case .failure(let error):
-				print(error)
+			guard let result = res else { return }
+			self.product = result
+			DispatchQueue.main.async {
+				self.arraySection()
+				self.sectionStruct = [ SectionStruct(header: Constants.burgers, row: self.burgers),
+															 SectionStruct(header: Constants.combo, row: self.combo),
+															 SectionStruct(header: Constants.deserts , row: self.dessert),
+															 SectionStruct(header: Constants.drinks, row: self.drinks)
+				]
+				print(self.sectionStruct)
+				self.tableView.reloadData()
 			}
 		}
 	}
@@ -70,16 +95,16 @@ class MainScreen: UIViewController {
 		for i in product {
 			let category = i.category
 			switch category {
-			case "Бургеры":
+			case Constants.burgers:
 				self.burgers.append(i)
-			case "Комбо":
+			case Constants.combo:
 				self.combo.append(i)
-			case "Десерты":
+			case Constants.deserts:
 				self.dessert.append(i)
-			case "Напитки":
+			case Constants.drinks:
 				self.drinks.append(i)
 			default:
-				print("упс")
+				print("проверь json, возможно новая категория")
 			}
 		}
 	}
@@ -104,7 +129,7 @@ class MainScreen: UIViewController {
 	}
 	
 	private func createScrollView() {
-		let array = createButtons(input: Constants.buttonCategoryArray)
+		let array = createButtons(input: buttonCategoryArray)
 		addButtonToStackView(input: array)
 	}
 	
@@ -121,13 +146,13 @@ class MainScreen: UIViewController {
 		for item in input {
 			let button = UIButton()
 			button.setTitle(item, for: .normal)
-			button.setTitleColor(UIColor(named: "BorderColor40"), for: .normal)
-			button.setTitleColor(UIColor(named: "BorderColor"), for: .selected)
+			button.setTitleColor(Constants.borderColor40, for: .normal)
+			button.setTitleColor(Constants.borderColor, for: .selected)
 			button.translatesAutoresizingMaskIntoConstraints = false
 			button.heightAnchor.constraint(equalToConstant: 32).isActive = true
 			button.widthAnchor.constraint(equalToConstant: 88).isActive = true
 			button.backgroundColor = .secondarySystemBackground
-			button.layer.borderColor = UIColor(named: "BorderColor40")?.cgColor
+			button.layer.borderColor = Constants.borderColor40?.cgColor
 			button.layer.borderWidth = 1
 			button.layer.cornerRadius = 16
 			button.tag = buttonTag
@@ -144,7 +169,7 @@ class MainScreen: UIViewController {
 		self.lastSelectedButton.layer.borderWidth = 1
 		self.lastSelectedButton = sender
 		sender.isSelected = true
-		sender.backgroundColor = UIColor(named: "BorderColor20")
+		sender.backgroundColor = Constants.borderColor20
 		sender.layer.borderWidth = 0
 		self.tableView.scrollToRow(at: IndexPath(row: 0, section: sender.tag), at: .top, animated: true)
 	}
@@ -214,13 +239,37 @@ extension MainScreen: UITableViewDelegate, UITableViewDataSource {
 		return sectionStruct[section].row.count // self.product.count
 	}
 	
-	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+	func addData(indexPath: IndexPath) -> CustomCell {
 		let cell = tableView.dequeueReusableCell(withIdentifier: CustomCell.identifier, for: indexPath) as! CustomCell
-		let item = sectionStruct[indexPath.section].row[indexPath.row]
-		cell.titleLabel.text = item.name
-		cell.descript.text = item.description
-		cell.buttonPrice.text = "oт \(item.price) р"
+			let item = sectionStruct[indexPath.section].row[indexPath.row]
+			let imageView = UIImageView()
+//		 if let image = cahedataSource.object(forKey: "\(sectionStruct[indexPath.section].row[indexPath.row])" as AnyObject) {
+//				cell.image.image = image
+//			} else {
+//				guard let url = URL(string: item.image) else { return cell }
+//				imageView.sd_setImage(with: url)
+//				print("imageView.image: \(imageView.image)")
+//				cell.image.image = imageView.image
+//				//tableView.reloadRows(at: [indexPath], with: .fade)
+//				cahedataSource.setObject(imageView.image!, forKey: "\(sectionStruct[indexPath.section].row[indexPath.row])" as AnyObject)
+//			}
+		    guard let url = URL(string: item.image) else { return cell }
+				imageView.sd_setImage(with: url)
+		DispatchQueue.main.async {
+			cell.image.image = imageView.image
+			cell.titleLabel.text = item.name
+			cell.descript.text = item.description
+			cell.buttonPrice.text = "oт \(item.price) р"
+		}
+
+		self.tableView.reloadRows(at: [indexPath], with: .fade)
 		return cell
+	}
+	
+
+	
+	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+		return addData(indexPath: indexPath)
 	}
 	
 	func numberOfSections(in tableView: UITableView) -> Int {

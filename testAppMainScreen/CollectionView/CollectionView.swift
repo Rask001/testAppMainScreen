@@ -12,6 +12,7 @@ class CollectionView: UICollectionView {
 	
 	var cell = [UIImage]()
 	
+	//MARK: - init
 	init() {
 		let layout = UICollectionViewFlowLayout()
 		layout.scrollDirection = .horizontal
@@ -23,7 +24,7 @@ class CollectionView: UICollectionView {
 		fatalError("init(coder:) has not been implemented")
 	}
 	
-	func set(cells: [UIImage]) {
+	internal func set(cells: [UIImage]) {
 		self.cell = cells
 	}
 	
