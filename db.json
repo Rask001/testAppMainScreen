@@ -4,91 +4,91 @@
 			"name": "Гранд Де Люкс",
 			"description": "Сочный бифштекс из натуральной говядины приготовленный на гриле",
 			"price": 189,
-			"image": "https://ibb.co/SyLkvYJ",
+			"image": "https://i.ibb.co/ZXZQT4N/001.jpg",
 			"category": "Бургеры"
 		},
 		{
 			"name": "Биг Спешиал",
 			"description": "Это неповторимый сандвич с большим рубленым бифштексом из 100% отборной говядины на большой булочке с кунжутом.",
 			"price": 269,
-			"image": "https://ibb.co/92mN35C",
+			"image": "https://i.ibb.co/CvpzsGT/002.jpg",
 			"category": "Бургеры"
 		},
 		{
 			"name": "Двойной Чизбургер",
 			"description": "Два рубленых бифштекса из натуральной цельной говядины с двумя кусочками сыра Чеддер",
 			"price": 129,
-			"image": "https://ibb.co/1MHzGGr",
+			"image": "https://i.ibb.co/42B1RR8/003.jpg",
 			"category": "Бургеры"
 		},
 		{
 			"name": "Биг Спешиал Три Сыра Комбо",
 			"description": "Комбо состоит из Биг Спешиал Три Сыра, Картофеля на выбор и Напитка на выбор.",
 			"price": 390,
-			"image": "https://ibb.co/C9fLp8d",
+			"image": "https://i.ibb.co/GMqmfpw/004.jpg",
 			"category": "Комбо"
 		},
 		{
 			"name": "Биг Спешиал Ролл Комбо",
 			"description": "Комбо состоит из Биг Спешиал Ролл, Картофеля на выбор и Напитка на выбор.",
 			"price": 299,
-			"image": "https://ibb.co/bdkHGfT",
+			"image": "https://i.ibb.co/x5Nmr4W/005.jpg",
 			"category": "Комбо"
 		},
 		{
 			"name": "Креветки (9 шт.) Большой Комбо",
 			"description": "Большой Комбо состоит из Креветок (9 шт.), Картофеля на выбор и Напитка на выбор.",
 			"price": 494,
-			"image": "https://ibb.co/X46Wd9Q",
+			"image": "https://i.ibb.co/3sVT8w3/006.jpg",
 			"category": "Комбо"
 		},
 		{
 			"name": "Липтон Зеленый 0,25 л",
 			"description": "Прохладительный напиток (Маленький 250 мл)",
 			"price": 79,
-			"image": "https://ibb.co/3ztby5s",
+			"image": "https://i.ibb.co/NSwq6g3/007.jpg",
 			"category": "Напитки"
 		},
 		{
 			"name": "Аква Минерале",
 			"description": "Минеральная вода без газа (500 мл)",
 			"price": 99,
-			"image": "https://ibb.co/s9pzcY6",
+			"image": "https://i.ibb.co/B2HFvMr/008.jpg",
 			"category": "Напитки"
 		},
 		{
 			"name": "Апельсиновый сок 0,3 л",
 			"description": "Свежевосстановленный апельсиновый сок (Маленький 300 мл)",
 			"price": 85,
-			"image": "https://ibb.co/L0Fq4jY",
+			"image": "https://i.ibb.co/MgvjqwZ/009.jpg",
 			"category": "Напитки"
 		},
 		{
 			"name": "Капучино 0,2 л",
 			"description": "Молочный напиток с тонким ароматом эспрессо и плотной шапкой молочной пены",
 			"price": 69,
-			"image": "https://ibb.co/YBSCXpd",
+			"image": "https://i.ibb.co/CKyc6h9/0010.jpg",
 			"category": "Напитки"
 		},
 		{
 			"name": "Вафельный Рожок",
 			"description": "Классическое мороженое из натурального цельного молока в румяной хрустящей вафле",
 			"price": 39,
-			"image": "https://ibb.co/fS6syCN",
+			"image": "https://i.ibb.co/9vK71q4/0011.jpg",
 			"category": "Десерты"
 		},
 		{
 			"name": "Мороженое Шоколадное",
 			"description": "Мороженое из натурального цельного молока с добавкой шоколадного наполнителя.",
 			"price": 84,
-			"image": "https://ibb.co/D7GL1w4",
+			"image": "https://i.ibb.co/fC8QXrM/0012.jpg",
 			"category": "Десерты"
 		},
 		{
 			"name": "Пирожок Вишневый",
 			"description": "Обжаренный во фритюре пирожок со сладкой начинкой из вишни",
 			"price": 59,
-			"image": "https://ibb.co/Gf6Qs4T",
+			"image": "https://i.ibb.co/CpcKJ32/0013.jpg",
 			"category": "Десерты"
 		}
 	]
