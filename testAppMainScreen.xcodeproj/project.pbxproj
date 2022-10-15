@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		3A328FB528F8B2CB0078FFEA /* OtherScreens.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A328FB428F8B2CB0078FFEA /* OtherScreens.swift */; };
-		3A328FB728F9ADC90078FFEA /* json.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A328FB628F9ADC80078FFEA /* json.json */; };
 		3A328FB928F9AFD70078FFEA /* ProductModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A328FB828F9AFD70078FFEA /* ProductModel.swift */; };
 		3A328FBB28F9DF780078FFEA /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A328FBA28F9DF780078FFEA /* NetworkService.swift */; };
 		3A3AE15F28F823DB00618442 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A3AE15E28F823DB00618442 /* AppDelegate.swift */; };
@@ -30,7 +29,6 @@
 
 /* Begin PBXFileReference section */
 		3A328FB428F8B2CB0078FFEA /* OtherScreens.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherScreens.swift; sourceTree = "<group>"; };
-		3A328FB628F9ADC80078FFEA /* json.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = json.json; path = ../../../../../Downloads/json.json; sourceTree = "<group>"; };
 		3A328FB828F9AFD70078FFEA /* ProductModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductModel.swift; sourceTree = "<group>"; };
 		3A328FBA28F9DF780078FFEA /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		3A3AE15B28F823DB00618442 /* testAppMainScreen.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = testAppMainScreen.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -121,7 +119,6 @@
 				3A3AE16728F823DD00618442 /* Assets.xcassets */,
 				3A3AE16928F823DD00618442 /* LaunchScreen.storyboard */,
 				3A3AE16C28F823DD00618442 /* Info.plist */,
-				3A328FB628F9ADC80078FFEA /* json.json */,
 			);
 			path = testAppMainScreen;
 			sourceTree = "<group>";
@@ -220,7 +217,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3A328FB728F9ADC90078FFEA /* json.json in Resources */,
 				3A3AE16B28F823DD00618442 /* LaunchScreen.storyboard in Resources */,
 				3A3AE16828F823DD00618442 /* Assets.xcassets in Resources */,
 			);

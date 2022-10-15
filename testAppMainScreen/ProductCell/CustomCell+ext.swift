@@ -14,7 +14,8 @@ extension CustomCell {
 	
 	internal func makeTitleLabel() -> UILabel {
 		let label = UILabel()
-		label.numberOfLines = 2
+		label.numberOfLines = 0
+		label.adjustsFontSizeToFitWidth = true
 		label.text = "Ветчина и грибы"
 		return label
 	}
@@ -77,6 +78,7 @@ extension CustomCell {
 		self.titleLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 180).isActive = true
 		self.titleLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 8).isActive = true
 		self.titleLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -128).isActive = true
+		self.titleLabel.trailingAnchor.constraint(equalTo: self.button.trailingAnchor).isActive = true
 		
 		self.descript.translatesAutoresizingMaskIntoConstraints = false
 		self.descript.leadingAnchor.constraint(equalTo: self.titleLabel.leadingAnchor).isActive = true

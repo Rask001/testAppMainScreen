@@ -10,6 +10,7 @@ import UIKit
 fileprivate enum Constants {
 	static var tableViewRowHeight: CGFloat { 156 }
 	static var urlString = "https://my-json-server.typicode.com/Rask001/testAppMainScreen/items"
+	static var buttonCategoryArray = ["Бургеры", "Комбо", "Десерты", "Напитки"]
 }
 
 class MainScreen: UIViewController {
@@ -20,10 +21,13 @@ class MainScreen: UIViewController {
 	private let scrollView = UIScrollView()
 	private let stackView = UIStackView()
 	private var lastSelectedButton = UIButton()
-	private let buttonCategoryArray = ["Бургеры", "Комбо", "Десерты", "Напитки"]
 	private let networkService = NetworkService()
 	private var product = [Product]()
-	
+	private var burgers = [Product]()
+	private var combo = [Product]()
+	private var drinks = [Product]()
+	private var dessert = [Product]()
+	private var sectionStruct = [SectionStruct]()
 	
 	//MARK: - Init
 	override func viewDidLoad() {
@@ -36,18 +40,46 @@ class MainScreen: UIViewController {
 		setupStackView()
 		collectionView.set(cells: CollectionModel.fetchArray())
 		createScrollView()
-		
+		fetchData()
+	}
+	
+	private func fetchData() {
 		networkService.fetchRequest(urlString: Constants.urlString) { [weak self] result in
 			guard let self = self else { return }
 			switch result{
 			case .success(let product):
 				self.product = product
 				DispatchQueue.main.async {
+					self.arraySection()
+					self.sectionStruct = [ SectionStruct(header: "Бургеры", row: self.burgers),
+																 SectionStruct(header: "Комбо", row: self.combo),
+																 SectionStruct(header: "Десерты" , row: self.dessert),
+																 SectionStruct(header: "Напитки", row: self.drinks)
+															 ]
+					print(self.sectionStruct)
 					self.tableView.reloadData()
 				}
-				print(product.count)
 			case .failure(let error):
 				print(error)
+			}
+		}
+	}
+	
+	
+	private func arraySection() {
+		for i in product {
+			let category = i.category
+			switch category {
+			case "Бургеры":
+				self.burgers.append(i)
+			case "Комбо":
+				self.combo.append(i)
+			case "Десерты":
+				self.dessert.append(i)
+			case "Напитки":
+				self.drinks.append(i)
+			default:
+				print("упс")
 			}
 		}
 	}
@@ -72,7 +104,7 @@ class MainScreen: UIViewController {
 	}
 	
 	private func createScrollView() {
-		let array = createButton(input: buttonCategoryArray)
+		let array = createButtons(input: Constants.buttonCategoryArray)
 		addButtonToStackView(input: array)
 	}
 	
@@ -83,7 +115,7 @@ class MainScreen: UIViewController {
 	}
 
 	
-	private func createButton(input: [String]) -> [UIButton] {
+	private func createButtons(input: [String]) -> [UIButton] {
 		var buttonArray = [UIButton]()
 		var buttonTag = 0
 		for item in input {
@@ -114,13 +146,8 @@ class MainScreen: UIViewController {
 		sender.isSelected = true
 		sender.backgroundColor = UIColor(named: "BorderColor20")
 		sender.layer.borderWidth = 0
-		print(sender.tag)
-		//self.scrollView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor).isActive = true
-//		UIView.animate(withDuration: 0.5) {
-//			self.view.layoutIfNeeded()
-//		}
+		self.tableView.scrollToRow(at: IndexPath(row: 0, section: sender.tag), at: .top, animated: true)
 	}
-
 
 	private func setupTableView() {
 		self.tableView.delegate = self
@@ -133,13 +160,10 @@ class MainScreen: UIViewController {
 		self.tableView.rowHeight = Constants.tableViewRowHeight
 		self.tableView.isScrollEnabled = true
 		self.tableView.allowsSelection = false
-		//self.tableView.scrollRectToVisible(<#T##rect: CGRect##CGRect#>, animated: <#T##Bool#>)
-		self.tableView.contentInset = UIEdgeInsets(top: 24, left: 0, bottom: 0, right: 0)
 	}
 	
 
 	//MARK: - AddSubViews
-	
 		private func addSubview() {
 			self.view.addSubview(tableView)
 			self.view.addSubview(collectionView)
@@ -182,33 +206,46 @@ class MainScreen: UIViewController {
 	}
 
 }
+
+
 //MARK: - extension
-extension MainScreen: UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate {
+extension MainScreen: UITableViewDelegate, UITableViewDataSource {
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return self.product.count
+		return sectionStruct[section].row.count // self.product.count
 	}
 	
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let cell = tableView.dequeueReusableCell(withIdentifier: CustomCell.identifier, for: indexPath) as! CustomCell
-		let item = product[indexPath.row]
+		let item = sectionStruct[indexPath.section].row[indexPath.row]
 		cell.titleLabel.text = item.name
 		cell.descript.text = item.description
 		cell.buttonPrice.text = "oт \(item.price) р"
 		return cell
 	}
-
 	
+	func numberOfSections(in tableView: UITableView) -> Int {
+		sectionStruct.count
+	}
+	
+	func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+		return sectionStruct[section].header
+	}
+}
+
+
+//MARK: - Sctoll
+extension MainScreen: UIScrollViewDelegate {
 	func scrollViewWillBeginDecelerating(_ scrollView: UIScrollView) {
 		
-		//self.collectionView.heightAnchor.constraint(equalToConstant: 0).isActive = true
-//		self.scrollView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor).isActive = true
+		self.collectionView.heightAnchor.constraint(equalToConstant: 0).isActive = true
+		//		self.scrollView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor).isActive = true
 		UIView.animate(withDuration: 1) {
 			self.view.layoutIfNeeded()
 		}
 		print("start scroll")
 	}
 	func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-		//self.collectionView.heightAnchor.constraint(equalToConstant: 136).isActive = true
+		self.collectionView.heightAnchor.constraint(equalToConstant: 136).isActive = true
 		UIView.animate(withDuration: 1) {
 			self.view.layoutIfNeeded()
 		}

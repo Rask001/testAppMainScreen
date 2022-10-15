@@ -19,3 +19,8 @@ struct Product: Codable {
 	var image: String
 	var category: String
 }
+
+struct SectionStruct {
+	var header: String
+	var row: [Product]
+}
