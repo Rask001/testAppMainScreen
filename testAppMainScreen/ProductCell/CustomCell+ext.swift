@@ -10,7 +10,6 @@ fileprivate enum Constants{
 }
 import Foundation
 import UIKit
-import SDWebImage
 
 extension CustomCell {
 	
@@ -51,11 +50,7 @@ extension CustomCell {
 
 	internal func makeImageView() -> UIImageView {
 		let imageView = UIImageView()
-		//cell.image.sd_setImage(with: "https://i.ibb.co/ZXZQT4N/001.jpg")
-//		guard let url = URL(string: "https://ibb.co/1MHzGGr") else { return imageView }
-//		imageView.sd_setImage(with: url)
 		imageView.clipsToBounds = false
-		imageView.image = UIImage(systemName: "person.fill.questionmark")?.withTintColor(UIColor(white: 0.5, alpha: 1), renderingMode: .automatic)
 		imageView.contentMode = .scaleAspectFit
 		return imageView
 	}

@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import SDWebImage
 
 fileprivate enum Constants {
 	static var tableViewRowHeight: CGFloat { 156 }
@@ -36,6 +35,7 @@ class MainScreen: UIViewController {
 	private var drinks = [Product]()
 	private var dessert = [Product]()
 	private var sectionStruct = [SectionStruct]()
+	var img = UIImage()
 	
 	lazy var cahedataSource: NSCache<AnyObject, UIImage> = {
 		let cache = NSCache<AnyObject, UIImage>()
@@ -200,15 +200,14 @@ class MainScreen: UIViewController {
 	//MARK: - Constraints
 	private func setConstraints() {
 		self.tableView.translatesAutoresizingMaskIntoConstraints = false
-		//self.tableView.topAnchor.constraint(equalTo: self.scrollView.bottomAnchor).isActive = true
-		self.tableView.heightAnchor.constraint(greaterThanOrEqualToConstant: 516).isActive = true
-		
+		self.tableView.topAnchor.constraint(equalTo: self.scrollView.bottomAnchor).isActive = true
+		//self.tableView.heightAnchor.constraint(greaterThanOrEqualToConstant: 516).isActive = true
 		self.tableView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
 		self.tableView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
 		self.tableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
 		
 		self.collectionView.translatesAutoresizingMaskIntoConstraints = false
-		self.collectionView.bottomAnchor.constraint(equalTo: self.scrollView.topAnchor).isActive = true
+		//self.collectionView.bottomAnchor.constraint(equalTo: self.scrollView.topAnchor).isActive = true
 		self.collectionView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
 		self.collectionView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
 		self.collectionView.heightAnchor.constraint(equalToConstant: 136).isActive = true //136
@@ -223,7 +222,7 @@ class MainScreen: UIViewController {
 		self.stackView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor).isActive = true
 		
 		self.scrollView.translatesAutoresizingMaskIntoConstraints = false
-		self.scrollView.bottomAnchor.constraint(equalTo: self.tableView.topAnchor).isActive = true
+		//self.scrollView.bottomAnchor.constraint(equalTo: self.tableView.topAnchor).isActive = true
 		//self.scrollView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
 		self.scrollView.widthAnchor.constraint(equalTo: self.view.widthAnchor).isActive = true
 		self.scrollView.topAnchor.constraint(equalTo: self.collectionView.bottomAnchor).isActive = true
@@ -239,30 +238,25 @@ extension MainScreen: UITableViewDelegate, UITableViewDataSource {
 		return sectionStruct[section].row.count // self.product.count
 	}
 	
-	func addData(indexPath: IndexPath) -> CustomCell {
+	func addData(indexPath: IndexPath) -> UITableViewCell {
 		let cell = tableView.dequeueReusableCell(withIdentifier: CustomCell.identifier, for: indexPath) as! CustomCell
 			let item = sectionStruct[indexPath.section].row[indexPath.row]
-			let imageView = UIImageView()
-//		 if let image = cahedataSource.object(forKey: "\(sectionStruct[indexPath.section].row[indexPath.row])" as AnyObject) {
-//				cell.image.image = image
-//			} else {
-//				guard let url = URL(string: item.image) else { return cell }
-//				imageView.sd_setImage(with: url)
-//				print("imageView.image: \(imageView.image)")
-//				cell.image.image = imageView.image
-//				//tableView.reloadRows(at: [indexPath], with: .fade)
-//				cahedataSource.setObject(imageView.image!, forKey: "\(sectionStruct[indexPath.section].row[indexPath.row])" as AnyObject)
-//			}
-		    guard let url = URL(string: item.image) else { return cell }
-				imageView.sd_setImage(with: url)
-		DispatchQueue.main.async {
-			cell.image.image = imageView.image
+		 if let image = cahedataSource.object(forKey: "\(sectionStruct[indexPath.section].row[indexPath.row])" as AnyObject) {
+				cell.image.image = image
+		 } else {
+				 guard let apiURL = URL(string: "\(self.sectionStruct[indexPath.section].row[indexPath.row].image)") else { fatalError() }
+				 let session = URLSession(configuration: .default)
+				 let task = session.dataTask(with: apiURL) { data, _, error in
+					 guard let data = data, error == nil else { return }
+					 DispatchQueue.main.async {
+						 cell.image.image = UIImage(data: data)!
+					 }
+				 }
+				 task.resume()
+			 }
 			cell.titleLabel.text = item.name
 			cell.descript.text = item.description
 			cell.buttonPrice.text = "oт \(item.price) р"
-		}
-
-		self.tableView.reloadRows(at: [indexPath], with: .fade)
 		return cell
 	}
 	
@@ -285,19 +279,20 @@ extension MainScreen: UITableViewDelegate, UITableViewDataSource {
 //MARK: - Sctoll
 extension MainScreen: UIScrollViewDelegate {
 	func scrollViewWillBeginDecelerating(_ scrollView: UIScrollView) {
-		
 		self.collectionView.heightAnchor.constraint(equalToConstant: 0).isActive = true
-		//		self.scrollView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor).isActive = true
 		UIView.animate(withDuration: 0.4) {
 			self.view.layoutIfNeeded()
 		}
 		print("start scroll")
 	}
 	func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-		self.collectionView.heightAnchor.constraint(equalToConstant: 136).isActive = true
-		UIView.animate(withDuration: 0.4) {
-			self.view.layoutIfNeeded()
-		}
+			self.collectionView.heightAnchor.constraint(equalToConstant: 136).isActive = true
+			UIView.animate(withDuration: 0.4) {
+				self.view.layoutSubviews()
+			}
+		
+		//self.collectionView.heightAnchor.constraint(equalToConstant: 136).isActive = true
+	
 		print("scroll end")
 	}
 }

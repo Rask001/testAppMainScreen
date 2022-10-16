@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import UIKit
 
 class NetworkService {
 	
@@ -24,17 +23,5 @@ class NetworkService {
 				complition(.success(data))
 			}
 		}.resume()
-	}
-
-	func showImageView(urlImage: String) -> UIImage {
-		var result = UIImage()
-		guard let url = URL(string: urlImage) else { fatalError() }
-			let session = URLSession.shared
-			session.dataTask(with: url) { data, responce, error in
-				if let data = data, let image = UIImage(data: data) {
-						result = image
-				}
-			}.resume()
-		return result
 	}
 }
