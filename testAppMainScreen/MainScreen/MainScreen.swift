@@ -7,7 +7,7 @@
 
 import UIKit
 
-fileprivate enum Constants {
+enum Constants {
 	static var tableViewRowHeight: CGFloat { 156 }
 	static var urlString = "https://my-json-server.typicode.com/Rask001/testAppMainScreen/items"
 	static var burgers = "Бургеры"
@@ -19,7 +19,7 @@ fileprivate enum Constants {
 	static var borderColor40 = UIColor(named: "BorderColor40")
 }
 
-class MainScreen: UIViewController {
+final class MainScreen: UIViewController {
 	
 	//MARK: - Property
 	private let tableView = UITableView()
@@ -32,7 +32,7 @@ class MainScreen: UIViewController {
 	private var sectionStruct = [SectionStruct]()
 	private var heightAnchorCollection: CGFloat = 136
 	private var heightAnchorCollectionZero: CGFloat = 0
-
+	private var sender = 0
 	private var tableHeaderView = MainHeaderView()
 	private var tableHeaderViewTopConstraint: NSLayoutConstraint?
 	
@@ -121,16 +121,15 @@ class MainScreen: UIViewController {
 		self.tableView.isScrollEnabled = true
 		self.tableView.allowsSelection = false
 		
-		tableHeaderView.complitionSender = { sender in
+		tableHeaderView.complitionSender = { [weak self] sender in
+			guard let self = self else { return }
 			self.sender = sender
 			self.tableView.scrollToRow(at: IndexPath(row: 0, section: sender), at: .top, animated: true)
 			UIView.animate(withDuration: 0.4) {
 				self.view.layoutIfNeeded()
-				print("scroll end")
 			}
 		}
 	}
-	var sender = 0
 	
 
 	//MARK: - AddSubViews
@@ -141,10 +140,10 @@ class MainScreen: UIViewController {
 	
 	//MARK: - Constraints
 	private func layout() {
-		tableHeaderViewTopConstraint = self.tableHeaderView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor)
+		self.tableHeaderViewTopConstraint = self.tableHeaderView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor)
 		self.tableHeaderView.translatesAutoresizingMaskIntoConstraints = false
 		self.tableHeaderView.heightAnchor.constraint(equalToConstant: 216).isActive = true
-		tableHeaderViewTopConstraint!.isActive = true
+		self.tableHeaderViewTopConstraint!.isActive = true
 		self.tableHeaderView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
 		self.tableHeaderView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
 		
@@ -154,7 +153,6 @@ class MainScreen: UIViewController {
 		self.tableView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
 		self.tableView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor).isActive = true
 	}
-
 }
 
 //MARK: - extension
@@ -200,13 +198,14 @@ extension MainScreen: UITableViewDelegate, UITableViewDataSource {
 	func scrollViewDidScroll(_ scrollView: UIScrollView) {
 		let y = scrollView.contentOffset.y
 		
-		let swipingDown = y <= 0
+		let swipingDown = y <= 30
 		let shouldSnap = y > 30
 		let collectionViewHeight = tableHeaderView.collectionView.frame.height
 		
 		UIView.animate(withDuration: 0.3) {
 			self.tableHeaderView.collectionView.alpha = swipingDown ? 1.0 : 0.0
 		}
+		
 		UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.3, delay: 0) {
 			self.tableHeaderViewTopConstraint?.constant = shouldSnap ? -collectionViewHeight : 0
 			self.view.layoutIfNeeded()

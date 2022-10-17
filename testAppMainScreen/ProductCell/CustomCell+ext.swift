@@ -4,7 +4,7 @@
 //
 //  Created by Антон on 13.10.2022.
 //
-fileprivate enum Constants{
+fileprivate enum Constant{
 	static var descriptionFont: UIFont { UIFont(name: "Helvetica Neue Thin", size: 13)! }
 	static var buttonBorderColor: CGColor { UIColor(named: "BorderColor")?.cgColor ?? UIColor.red.cgColor }
 }
@@ -32,7 +32,7 @@ extension CustomCell {
 	internal func makeButton() -> UIButton {
 		let button = UIButton()
 		button.backgroundColor = .white
-		button.layer.borderColor = Constants.buttonBorderColor
+		button.layer.borderColor = Constant.buttonBorderColor
 		button.layer.borderWidth = 1
 		button.layer.cornerRadius = 6
 		return button
@@ -41,7 +41,7 @@ extension CustomCell {
 	internal func makeDescription() -> UILabel {
 		let label = UILabel()
 		label.text = "Ветчина,шампиньоны, увеличинная порция моцареллы, томатный соус"
-		label.font = Constants.descriptionFont
+		label.font = Constant.descriptionFont
 		label.numberOfLines = 0
 		label.textAlignment = .left
 		return label

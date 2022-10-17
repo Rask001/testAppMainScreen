@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class Contacts: UIViewController {
+final class Contacts: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		title = "Контакты"
@@ -16,7 +16,7 @@ class Contacts: UIViewController {
 	}
 }
 
-class Profile: UIViewController {
+final class Profile: UIViewController {
 	override func viewDidLoad() {
 		view.backgroundColor = .lightGray
 		title = "Профиль"
@@ -24,7 +24,7 @@ class Profile: UIViewController {
 	}
 }
 
-class Bye: UIViewController {
+final class Bye: UIViewController {
 	override func viewDidLoad() {
 		view.backgroundColor = .tertiarySystemBackground
 		title = "Корзина"

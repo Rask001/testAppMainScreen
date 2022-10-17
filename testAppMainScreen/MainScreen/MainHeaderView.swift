@@ -7,19 +7,7 @@
 
 import UIKit
 
-fileprivate enum Constants {
-	static var tableViewRowHeight: CGFloat { 156 }
-	static var urlString = "https://my-json-server.typicode.com/Rask001/testAppMainScreen/items"
-	static var burgers = "Бургеры"
-	static var combo = "Комбо"
-	static var deserts = "Десерты"
-	static var drinks = "Напитки"
-	static var borderColor = UIColor(named: "BorderColor")
-	static var borderColor20 = UIColor(named: "BorderColor20")
-	static var borderColor40 = UIColor(named: "BorderColor40")
-}
-
-class MainHeaderView: UIView {
+final class MainHeaderView: UIView {
   let collectionView = CollectionView()
   let scrollView = UIScrollView()
 	private let stackView = UIStackView()
@@ -35,18 +23,14 @@ class MainHeaderView: UIView {
 		setupStackView()
 		createScrollView()
 		setupScrollView()
-		
 	}
-	
 	required init?(coder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
 	}
 	
 }
 
-
 extension MainHeaderView {
-	
 	private func addButtonToStackView(input: [UIButton]) {
 		for item in input {
 			self.stackView.addArrangedSubview(item)
@@ -90,7 +74,6 @@ extension MainHeaderView {
 		sender.isSelected = true
 		sender.backgroundColor = Constants.borderColor20
 		sender.layer.borderWidth = 0
-		
 		getSenderTag(sender: sender)
 	}
 	

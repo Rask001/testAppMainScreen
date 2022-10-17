@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class CustomCell: UITableViewCell {
+final class CustomCell: UITableViewCell {
 	static let identifier = "CustomCell"
 	
 	lazy var titleLabel = makeTitleLabel()

@@ -7,7 +7,7 @@
 
 import Foundation
 import UIKit
-class NetworkDataFetcher {
+final class NetworkDataFetcher {
 	let networkService = NetworkService()
 	
 	func fetchProducts(urlString: String, responce: @escaping ([Product]?) -> Void) {
