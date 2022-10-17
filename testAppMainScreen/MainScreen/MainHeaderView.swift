@@ -20,8 +20,8 @@ fileprivate enum Constants {
 }
 
 class MainHeaderView: UIView {
-	private let collectionView = CollectionView()
-	private let scrollView = UIScrollView()
+  let collectionView = CollectionView()
+  let scrollView = UIScrollView()
 	private let stackView = UIStackView()
 	private var lastSelectedButton = UIButton()
 	private var buttonCategoryArray = [Constants.burgers, Constants.combo, Constants.deserts, Constants.drinks]
@@ -89,9 +89,8 @@ extension MainHeaderView {
 		sender.isSelected = true
 		sender.backgroundColor = Constants.borderColor20
 		sender.layer.borderWidth = 0
+		
 		//self.tableView.scrollToRow(at: IndexPath(row: 0, section: sender.tag), at: .top, animated: true)
-		
-		
 //		UIView.animate(withDuration: 0.4) {
 //			self.view.layoutIfNeeded()
 //			print("scroll end")

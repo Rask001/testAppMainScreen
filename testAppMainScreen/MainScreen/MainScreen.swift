@@ -23,7 +23,6 @@ class MainScreen: UIViewController {
 	
 	//MARK: - Property
 	private let tableView = UITableView()
-	private let headerHeigh: CGFloat = 160
 	private let networkDataFetcher = NetworkDataFetcher()
 	private var product = [Product]()
 	private var burgers = [Product]()
@@ -35,6 +34,7 @@ class MainScreen: UIViewController {
 	private var heightAnchorCollectionZero: CGFloat = 0
 
 	private var tableHeaderView = MainHeaderView()
+	private var tableHeaderViewTopConstraint: NSLayoutConstraint?
 	var img = UIImage()
 	
 	lazy var cahedataSource: NSCache<AnyObject, UIImage> = {
@@ -85,7 +85,6 @@ class MainScreen: UIViewController {
 		}
 	}
 	
-	
 	private func arraySection() {
 		for i in product {
 			let category = i.category
@@ -133,9 +132,10 @@ class MainScreen: UIViewController {
 	
 	//MARK: - Constraints
 	private func layout() {
+		tableHeaderViewTopConstraint = self.tableHeaderView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor)
 		self.tableHeaderView.translatesAutoresizingMaskIntoConstraints = false
 		self.tableHeaderView.heightAnchor.constraint(equalToConstant: 216).isActive = true
-		self.tableHeaderView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor).isActive = true
+		tableHeaderViewTopConstraint!.isActive = true
 		self.tableHeaderView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
 		self.tableHeaderView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
 		
@@ -190,5 +190,21 @@ extension MainScreen: UITableViewDelegate, UITableViewDataSource {
 	
 	func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
 		return sectionStruct[section].header
+	}
+	
+	func scrollViewDidScroll(_ scrollView: UIScrollView) {
+		let y = scrollView.contentOffset.y
+		
+		let swipingDown = y <= 0
+		let shouldSnap = y > 30
+		let collectionViewHeight = tableHeaderView.collectionView.frame.height
+		
+		UIView.animate(withDuration: 0.3) {
+			self.tableHeaderView.collectionView.alpha = swipingDown ? 1.0 : 0.0
+		}
+		UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.3, delay: 0) {
+			self.tableHeaderViewTopConstraint?.constant = shouldSnap ? -collectionViewHeight : 0
+			self.view.layoutIfNeeded()
+		}
 	}
 }
