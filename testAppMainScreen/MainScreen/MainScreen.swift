@@ -35,7 +35,6 @@ class MainScreen: UIViewController {
 
 	private var tableHeaderView = MainHeaderView()
 	private var tableHeaderViewTopConstraint: NSLayoutConstraint?
-	var img = UIImage()
 	
 	lazy var cahedataSource: NSCache<AnyObject, UIImage> = {
 		let cache = NSCache<AnyObject, UIImage>()
@@ -121,8 +120,18 @@ class MainScreen: UIViewController {
 		self.tableView.rowHeight = Constants.tableViewRowHeight
 		self.tableView.isScrollEnabled = true
 		self.tableView.allowsSelection = false
+		
+		tableHeaderView.complitionSender = { sender in
+			self.sender = sender
+			self.tableView.scrollToRow(at: IndexPath(row: 0, section: sender), at: .top, animated: true)
+			UIView.animate(withDuration: 0.4) {
+				self.view.layoutIfNeeded()
+				print("scroll end")
+			}
+		}
 	}
-
+	var sender = 0
+	
 
 	//MARK: - AddSubViews
 		private func addSubview() {
@@ -139,7 +148,6 @@ class MainScreen: UIViewController {
 		self.tableHeaderView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
 		self.tableHeaderView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
 		
-		
 		self.tableView.translatesAutoresizingMaskIntoConstraints = false
 		self.tableView.topAnchor.constraint(equalTo: self.tableHeaderView.bottomAnchor).isActive = true
 		self.tableView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
@@ -148,7 +156,6 @@ class MainScreen: UIViewController {
 	}
 
 }
-
 
 //MARK: - extension
 extension MainScreen: UITableViewDelegate, UITableViewDataSource {
@@ -177,8 +184,6 @@ extension MainScreen: UITableViewDelegate, UITableViewDataSource {
 			cell.buttonPrice.text = "oт \(item.price) р"
 		return cell
 	}
-	
-
 	
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		return addData(indexPath: indexPath)

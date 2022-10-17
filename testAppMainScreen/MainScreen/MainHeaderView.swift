@@ -25,6 +25,7 @@ class MainHeaderView: UIView {
 	private let stackView = UIStackView()
 	private var lastSelectedButton = UIButton()
 	private var buttonCategoryArray = [Constants.burgers, Constants.combo, Constants.deserts, Constants.drinks]
+	var complitionSender: ((Int) -> ())?
 	
 	override init(frame: CGRect) {
 		super.init(frame: .zero)
@@ -90,11 +91,11 @@ extension MainHeaderView {
 		sender.backgroundColor = Constants.borderColor20
 		sender.layer.borderWidth = 0
 		
-		//self.tableView.scrollToRow(at: IndexPath(row: 0, section: sender.tag), at: .top, animated: true)
-//		UIView.animate(withDuration: 0.4) {
-//			self.view.layoutIfNeeded()
-//			print("scroll end")
-//		}
+		getSenderTag(sender: sender)
+	}
+	
+	func getSenderTag(sender: UIButton) {
+		complitionSender!(sender.tag)
 	}
 	
 	private func setupScrollView() {
