@@ -23,6 +23,8 @@ class MainScreen: UIViewController {
 	
 	//MARK: - Property
 	private let tableView = UITableView()
+	private var headerView = UIView()
+	private let headerHeigh: CGFloat = 160
 	private let collectionView = CollectionView()
 	private let scrollView = UIScrollView()
 	private let stackView = UIStackView()
@@ -35,6 +37,7 @@ class MainScreen: UIViewController {
 	private var drinks = [Product]()
 	private var dessert = [Product]()
 	private var sectionStruct = [SectionStruct]()
+	private var heightAnchorCollection: CGFloat = 136
 	var img = UIImage()
 	
 	lazy var cahedataSource: NSCache<AnyObject, UIImage> = {
@@ -55,6 +58,7 @@ class MainScreen: UIViewController {
 		createScrollView()
 		fetchData()
 	  navItem()
+
 		
 	}
 	
@@ -185,12 +189,15 @@ class MainScreen: UIViewController {
 		self.tableView.rowHeight = Constants.tableViewRowHeight
 		self.tableView.isScrollEnabled = true
 		self.tableView.allowsSelection = false
+	//	self.tableView.tableHeaderView = headerView
+	//	self.tableView.contentInset = UIEdgeInsets(top: headerHeigh, left: 0, bottom: 0, right: 0)
 	}
 	
 
 	//MARK: - AddSubViews
 		private func addSubview() {
 			self.view.addSubview(tableView)
+			//self.tableView.addSubview(headerView)
 			self.view.addSubview(collectionView)
 			self.view.addSubview(scrollView)
 			scrollView.addSubview(stackView)
@@ -205,7 +212,7 @@ class MainScreen: UIViewController {
 		self.tableView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
 		self.tableView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
 		self.tableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
-		
+	
 		self.collectionView.translatesAutoresizingMaskIntoConstraints = false
 		//self.collectionView.bottomAnchor.constraint(equalTo: self.scrollView.topAnchor).isActive = true
 		self.collectionView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
@@ -214,13 +221,13 @@ class MainScreen: UIViewController {
 		//self.collectionView.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
 		self.collectionView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor).isActive = true
 		//self.collectionView.heightAnchor.constraint(equalToConstant: 112).isActive = true
-		
+	
 		self.stackView.translatesAutoresizingMaskIntoConstraints = false
 		self.stackView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor).isActive = true
 		self.stackView.topAnchor.constraint(equalTo: scrollView.topAnchor).isActive = true
 		self.stackView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor).isActive = true
 		self.stackView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor).isActive = true
-		
+	
 		self.scrollView.translatesAutoresizingMaskIntoConstraints = false
 		//self.scrollView.bottomAnchor.constraint(equalTo: self.tableView.topAnchor).isActive = true
 		//self.scrollView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
@@ -282,17 +289,65 @@ extension MainScreen: UIScrollViewDelegate {
 		self.collectionView.heightAnchor.constraint(equalToConstant: 0).isActive = true
 		UIView.animate(withDuration: 0.4) {
 			self.view.layoutIfNeeded()
+		
+			print("start scroll")
 		}
-		print("start scroll")
-	}
-	func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+		func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
 			self.collectionView.heightAnchor.constraint(equalToConstant: 136).isActive = true
+			
 			UIView.animate(withDuration: 0.4) {
 				self.view.layoutSubviews()
 			}
-		
-		//self.collectionView.heightAnchor.constraint(equalToConstant: 136).isActive = true
-	
-		print("scroll end")
+			
+			self.collectionView.heightAnchor.constraint(equalToConstant: 136).isActive = true
+			
+			print("scroll end")
+		}
 	}
 }
+
+
+
+
+////MARK: - AddSubViews
+//	private func addSubview() {
+//		self.view.addSubview(tableView)
+//		self.view.addSubview(collectionView)
+//		self.view.addSubview(scrollView)
+//		scrollView.addSubview(stackView)
+//	}
+//
+//
+////MARK: - Constraints
+//private func setConstraints() {
+//	self.tableView.translatesAutoresizingMaskIntoConstraints = false
+//	self.tableView.topAnchor.constraint(equalTo: self.scrollView.bottomAnchor).isActive = true
+//	//self.tableView.heightAnchor.constraint(greaterThanOrEqualToConstant: 516).isActive = true
+//	self.tableView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
+//	self.tableView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
+//	self.tableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
+//
+//	self.collectionView.translatesAutoresizingMaskIntoConstraints = false
+//	//self.collectionView.bottomAnchor.constraint(equalTo: self.scrollView.topAnchor).isActive = true
+//	self.collectionView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
+//	self.collectionView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
+//	self.collectionView.heightAnchor.constraint(equalToConstant: 136).isActive = true //136
+//	//self.collectionView.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
+//	self.collectionView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor).isActive = true
+//	//self.collectionView.heightAnchor.constraint(equalToConstant: 112).isActive = true
+//
+//	self.stackView.translatesAutoresizingMaskIntoConstraints = false
+//	self.stackView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor).isActive = true
+//	self.stackView.topAnchor.constraint(equalTo: scrollView.topAnchor).isActive = true
+//	self.stackView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor).isActive = true
+//	self.stackView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor).isActive = true
+//
+//	self.scrollView.translatesAutoresizingMaskIntoConstraints = false
+//	//self.scrollView.bottomAnchor.constraint(equalTo: self.tableView.topAnchor).isActive = true
+//	//self.scrollView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
+//	self.scrollView.widthAnchor.constraint(equalTo: self.view.widthAnchor).isActive = true
+//	self.scrollView.topAnchor.constraint(equalTo: self.collectionView.bottomAnchor).isActive = true
+//	self.scrollView.heightAnchor.constraint(equalToConstant: 80).isActive = true
+//}
+//
+//}
