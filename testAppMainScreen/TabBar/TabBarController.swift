@@ -21,10 +21,11 @@ class TabBarController: UITabBarController {
 	let byeScreen = Bye()
 
 	func setupTabBar() {
+		let mainScreenNC = createNavTabController(vc: MainScreen(), name: "Меню", image: "mappin.and.ellipse")
 		let contactScreenNC = createNavTabController(vc: Contacts(), name: "Контакты", image: "mappin.and.ellipse")
 		let profileScreenNC = createNavTabController(vc: Profile(), name: "Профиль", image: "person.fill")
 		let byeScreenNC = createNavTabController(vc: Bye(), name: "Корзина", image: "dollarsign.square")
-		viewControllers = [mainScreen, contactScreenNC, profileScreenNC, byeScreenNC]
+		viewControllers = [mainScreenNC, contactScreenNC, profileScreenNC, byeScreenNC]
 	}
 
 	

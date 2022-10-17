@@ -6,7 +6,7 @@
 //
 
 import UIKit
-
+//MARK: - Constants
 enum Constants {
 	static var tableViewRowHeight: CGFloat { 156 }
 	static var urlString = "https://my-json-server.typicode.com/Rask001/testAppMainScreen/items"
@@ -62,8 +62,9 @@ final class MainScreen: UIViewController {
 		self.navigationItem.leftBarButtonItem = rightButtonItem
 		self.navigationItem.leftBarButtonItem?.tintColor = .black
 	}
+	
 	@objc func leftNavItem() {
-		
+		print(#function)
 	}
 	
 	private func fetchData() {
@@ -131,7 +132,6 @@ final class MainScreen: UIViewController {
 		}
 	}
 	
-
 	//MARK: - AddSubViews
 		private func addSubview() {
 			self.view.addSubview(tableHeaderView)
