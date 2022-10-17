@@ -26,41 +26,4 @@ class NetworkDataFetcher {
 			}
 		}
 	}
-	
-//	func showImageView(urlImage: String) -> UIImage {
-//		var result = UIImage()
-//		guard let url = URL(string: urlImage) else { fatalError() }
-//			let session = URLSession.shared
-//		session.dataTask(with: url) { data, _, _  in
-//				if let data = data, let image = UIImage(data: data) {
-//						result = image
-//				}
-//			}.resume()
-//		return result
-//	}
-	
-//	func showImageView(urlImage: String) -> UIImage {
-//		var img = UIImage()
-//		let api = urlImage
-//		guard let apiURL = URL(string: api) else { fatalError() }
-//		let session = URLSession(configuration: .default)
-//		let task = session.dataTask(with: apiURL) { data, _, error in
-//			guard let data = data, error == nil else { return }
-//			DispatchQueue.main.async {
-//				img = UIImage(data: data)!
-//			}
-//		}
-//		task.resume()
-//		return img
-//	}
-	
-//	func showImageView(urlString: String, image: inout UIImage) {
-//		guard let apiURL = URL(string: urlString) else { fatalError() }
-//		let session = URLSession(configuration: .default)
-//		let task = session.dataTask(with: apiURL) { @escaping data, _, error in
-//			guard let data = data, error == nil else { return }
-//				image = UIImage(data: data)!
-//		}
-//		task.resume()
-//	}
 }

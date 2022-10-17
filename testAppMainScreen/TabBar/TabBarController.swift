@@ -15,16 +15,20 @@ class TabBarController: UITabBarController {
 		setupTabBar()
 	}
 	
+	let mainScreen = MainScreen()
+	let contactScreen = Contacts()
+	let profileScreen = Profile()
+	let byeScreen = Bye()
+
 	func setupTabBar() {
-		let mainScreen = createNavController(vc: MainScreen(), name: "Меню", image: "menucard")
-		let contactScreen = createNavController(vc: Contacts(), name: "Контакты", image: "mappin.and.ellipse")
-		let profileScreen = createNavController(vc: Profile(), name: "Профиль", image: "person.fill")
-		let byeScreen = createNavController(vc: Bye(), name: "Корзина", image: "dollarsign.square")
-		
-		viewControllers = [mainScreen, contactScreen, profileScreen, byeScreen]
+		let contactScreenNC = createNavTabController(vc: Contacts(), name: "Контакты", image: "mappin.and.ellipse")
+		let profileScreenNC = createNavTabController(vc: Profile(), name: "Профиль", image: "person.fill")
+		let byeScreenNC = createNavTabController(vc: Bye(), name: "Корзина", image: "dollarsign.square")
+		viewControllers = [mainScreen, contactScreenNC, profileScreenNC, byeScreenNC]
 	}
+
 	
-	func createNavController(vc: UIViewController, name: String, image: String) -> UINavigationController {
+	func createNavTabController(vc: UIViewController, name: String, image: String) -> UINavigationController {
 		let item = UITabBarItem(title: name, image: UIImage(systemName: image), tag: 0)
 		let navController = UINavigationController(rootViewController: vc)
 		navController.tabBarItem = item
