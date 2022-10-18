@@ -23,24 +23,16 @@ final class MainScreen: UIViewController {
 	
 	//MARK: - Property
 	private let tableView = UITableView(frame: .zero, style: .grouped)
-	private let networkDataFetcher = NetworkDataFetcher()
-	private var product = [Product]()
-	private var burgers = [Product]()
-	private var combo = [Product]()
-	private var drinks = [Product]()
-	private var dessert = [Product]()
-	private var sectionStruct = [SectionStruct]()
 	private var heightAnchorCollection: CGFloat = 136
 	private var heightAnchorCollectionZero: CGFloat = 0
 	private var sender = 0
 	private var indexPathSection = 0
 	private var tableHeaderView = MainHeaderView()
+	private var animation = Animations()
 	private var tableHeaderViewTopConstraint: NSLayoutConstraint?
 	
-	lazy var cahedataSource: NSCache<AnyObject, UIImage> = {
-		let cache = NSCache<AnyObject, UIImage>()
-		return cache
-	}()
+	private var networkDataFetcher = NetworkDataFetcher()
+	var presenter: MainScreenPresenterProtocol!
 	
 	//MARK: - Init
 	override func viewDidLoad() {
@@ -49,61 +41,22 @@ final class MainScreen: UIViewController {
 		layout()
 		setupTableView()
 		setupView()
-		fetchData()
 	  navItem()
 	}
 
-	
-	
 	private func navItem() {
-		let rightButtonItem = UIBarButtonItem(
+		let leftButtonItem = UIBarButtonItem(
 			title: "Москва ▼",
 			style: .done,
 			target: self,
 			action: #selector(leftNavItem)
 		)
-		self.navigationItem.leftBarButtonItem = rightButtonItem
+		self.navigationItem.leftBarButtonItem = leftButtonItem
 		self.navigationItem.leftBarButtonItem?.tintColor = .black
 	}
 	
 	@objc func leftNavItem() {
 		print(#function)
-	}
-	
-	private func fetchData() {
-		self.networkDataFetcher.fetchProducts(urlString: Constants.urlString) { [weak self] res in
-			guard let self = self else { return }
-			guard let result = res else { return }
-			self.product = result
-			DispatchQueue.main.async {
-				self.arraySection()
-				self.sectionStruct = [ SectionStruct(header: Constants.burgers, row: self.burgers),
-															 SectionStruct(header: Constants.combo, row: self.combo),
-															 SectionStruct(header: Constants.deserts , row: self.dessert),
-															 SectionStruct(header: Constants.drinks, row: self.drinks)
-				]
-				print(self.sectionStruct)
-				self.tableView.reloadData()
-			}
-		}
-	}
-	
-	private func arraySection() {
-		for i in product {
-			let category = i.category
-			switch category {
-			case Constants.burgers:
-				self.burgers.append(i)
-			case Constants.combo:
-				self.combo.append(i)
-			case Constants.deserts:
-				self.dessert.append(i)
-			case Constants.drinks:
-				self.drinks.append(i)
-			default:
-				print("проверь json, возможно новая категория")
-			}
-		}
 	}
 	
 	//MARK: - Setup
@@ -158,25 +111,13 @@ final class MainScreen: UIViewController {
 //MARK: - extension
 extension MainScreen: UITableViewDelegate, UITableViewDataSource {
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return sectionStruct[section].row.count // self.product.count
+		return presenter.sectionStruct[section].row.count
 	}
 	
 	func addData(indexPath: IndexPath) -> UITableViewCell {
 		let cell = tableView.dequeueReusableCell(withIdentifier: CustomCell.identifier, for: indexPath) as! CustomCell
-			let item = sectionStruct[indexPath.section].row[indexPath.row]
-		 if let image = cahedataSource.object(forKey: "\(sectionStruct[indexPath.section].row[indexPath.row])" as AnyObject) {
-				cell.image.image = image
-		 } else {
-				 guard let apiURL = URL(string: "\(self.sectionStruct[indexPath.section].row[indexPath.row].image)") else { fatalError() }
-				 let session = URLSession(configuration: .default)
-				 let task = session.dataTask(with: apiURL) { data, _, error in
-					 guard let data = data, error == nil else { return }
-					 DispatchQueue.main.async {
-						 cell.image.image = UIImage(data: data)!
-					 }
-				 }
-				 task.resume()
-			 }
+		let item = presenter.sectionStruct[indexPath.section].row[indexPath.row]
+		  networkDataFetcher.loadImage(item: item, cell: cell)
 			cell.titleLabel.text = item.name
 			cell.descript.text = item.description
 			cell.buttonPrice.text = "oт \(item.price) р"
@@ -192,28 +133,36 @@ extension MainScreen: UITableViewDelegate, UITableViewDataSource {
 	}
 	
 	func numberOfSections(in tableView: UITableView) -> Int {
-		sectionStruct.count
+		presenter.sectionStruct.count
 	}
 	
 	
 	func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-		return sectionStruct[section].header
+		return presenter.sectionStruct[section].header
 	}
 	
 	func scrollViewDidScroll(_ scrollView: UIScrollView) {
-		let y = scrollView.contentOffset.y
-		
-		let swipingDown = y <= 30
-		let shouldSnap = y > 30
-		let collectionViewHeight = tableHeaderView.collectionView.frame.height
-		
-		UIView.animate(withDuration: 0.3) {
-			self.tableHeaderView.collectionView.alpha = swipingDown ? 1.0 : 0.0
-		}
-	
-		UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.3, delay: 0) {
-			self.tableHeaderViewTopConstraint?.constant = shouldSnap ? -collectionViewHeight : 0
-			self.view.layoutIfNeeded()
-		}
+		animation.animateHeaderView(scrollView: scrollView, tableHeaderView: tableHeaderView, topConstraint: tableHeaderViewTopConstraint!, view: self)
+//		func animateHeaderView(scrollView: UIScrollView, tableHeaderView: MainHeaderView, topConstraint: NSLayoutConstraint) {
+//			let y = scrollView.contentOffset.y
+//			let swipingDown = y <= 30
+//			let shouldSnap = y > 30
+//			let collectionViewHeight = tableHeaderView.collectionView.frame.height
+//
+//			UIView.animate(withDuration: 0.3) {
+//				self.tableHeaderView.collectionView.alpha = swipingDown ? 1.0 : 0.0
+//			}
+//
+//			UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.3, delay: 0) {
+//				self.tableHeaderViewTopConstraint?.constant = shouldSnap ? -collectionViewHeight : 0
+//				self.view.layoutIfNeeded()
+//			}
+//		}
+	}
+}
+
+extension MainScreen: MainScreenProtocol {
+	func reloadTableView() {
+		self.tableView.reloadData()
 	}
 }
