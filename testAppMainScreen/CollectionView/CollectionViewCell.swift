@@ -45,6 +45,3 @@ final class CollectionViewCell: UICollectionViewCell {
 		imageView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
 	}
 }
-
-extension CollectionViewCell: UICollectionViewDelegateFlowLayout {
-}

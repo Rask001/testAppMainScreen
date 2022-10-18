@@ -20,18 +20,16 @@ final class MainHeaderView: UIView {
 	
 	override init(frame: CGRect) {
 		super.init(frame: .zero)
-		style()
+		setCells()
 		addSubview()
 		layout()
 		setupStackView()
 		createScrollView()
 		setupScrollView()
-		
 	}
 	required init?(coder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
 	}
-	
 }
 
 extension MainHeaderView {
@@ -41,7 +39,6 @@ extension MainHeaderView {
 		}
 	}
 
-	
 	private func createButtons(input: [String]) -> [UIButton] {
 		var buttonArray = [UIButton]()
 		var buttonTag = 0
@@ -100,7 +97,7 @@ extension MainHeaderView {
 		self.stackView.backgroundColor = .secondarySystemBackground
 	}
 	
-	func style() {
+	func setCells() {
 		collectionView.set(cells: CollectionModel.fetchArray())
 	}
 	
@@ -114,7 +111,6 @@ extension MainHeaderView {
 	
 	//MARK: - Layout
 	func layout() {
-		
 		self.collectionView.translatesAutoresizingMaskIntoConstraints = false
 		self.collectionView.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
 		self.collectionView.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true

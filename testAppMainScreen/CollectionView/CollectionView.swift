@@ -24,7 +24,6 @@ final class CollectionView: UICollectionView {
 		fatalError("init(coder:) has not been implemented")
 	}
 	
-	
 	internal func set(cells: [UIImage]) {
 		self.cell = cells
 	}
@@ -38,7 +37,6 @@ final class CollectionView: UICollectionView {
 		register(CollectionViewCell.self, forCellWithReuseIdentifier: CollectionViewCell.identifier)
 	}
 }
-
 
 //MARK: - extension
 extension CollectionView: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {

@@ -8,6 +8,7 @@ fileprivate enum Constant{
 	static var descriptionFont: UIFont { UIFont(name: "Helvetica Neue Thin", size: 13)! }
 	static var buttonBorderColor: CGColor { UIColor(named: "BorderColor")?.cgColor ?? UIColor.red.cgColor }
 }
+
 import Foundation
 import UIKit
 
@@ -28,7 +29,6 @@ extension CustomCell {
 		return label
 	}
 
-
 	internal func makeButton() -> UIButton {
 		let button = UIButton()
 		button.backgroundColor = .white
@@ -46,7 +46,6 @@ extension CustomCell {
 		label.textAlignment = .left
 		return label
 	}
-	
 
 	internal func makeImageView() -> UIImageView {
 		let imageView = UIImageView()
@@ -54,9 +53,6 @@ extension CustomCell {
 		imageView.contentMode = .scaleAspectFit
 		return imageView
 	}
-	
-	//MARK: - Actions
-	
 	
 	//MARK: - addSubviewAndConfigure
 	internal func addSubviewAndConfigure() {
@@ -67,8 +63,8 @@ extension CustomCell {
 		self.button.addSubview(buttonPrice)
 	}
 
-	//MARK: - setConstraints
-	internal func setConstraintsCell() {
+	//MARK: - layout
+	internal func layout() {
 		self.image.translatesAutoresizingMaskIntoConstraints = false
 		self.image.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16).isActive = true
 		self.image.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
