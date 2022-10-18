@@ -14,7 +14,7 @@ class TabBarController: UITabBarController {
 		super.viewDidLoad()
 		setupTabBar()
 	}
-	
+
 	let mainScreen = ModuleBuilder.createMainScreen()
 	let contactScreen = Contacts()
 	let profileScreen = Profile()
@@ -25,7 +25,7 @@ class TabBarController: UITabBarController {
 		let contactScreenNC = createNavTabController(vc: contactScreen, name: "Контакты", image: "mappin.and.ellipse")
 		let profileScreenNC = createNavTabController(vc: profileScreen, name: "Профиль", image: "person.fill")
 		let byeScreenNC = createNavTabController(vc: byeScreen, name: "Корзина", image: "dollarsign.square")
-		viewControllers = [mainScreenNC, contactScreenNC, profileScreenNC, byeScreenNC]
+		self.viewControllers = [mainScreenNC, contactScreenNC, profileScreenNC, byeScreenNC]
 	}
 
 	

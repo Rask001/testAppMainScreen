@@ -6,7 +6,7 @@
 //
 
 import UIKit
-
+//MARK: - Protocols
 protocol NetworkServiceProtocol: Any {
 	func fetchProducts(urlString: String, responce: @escaping ([Product]?) -> Void)
 	func loadImage(item: Product, cell: CustomCell)
@@ -16,9 +16,8 @@ protocol NetworkDataFetcherProtocol: Any {
 	func request(urlString: String, complition: @escaping (Result<Data, Error>) -> Void)
 }
 
-
+//MARK: - classes
 final class NetworkService: NetworkDataFetcherProtocol {
-	
 	func request(urlString: String, complition: @escaping (Result<Data, Error>) -> Void) {
 		let urlString = urlString
 		guard let url = URL(string: urlString) else { return }
@@ -35,7 +34,6 @@ final class NetworkService: NetworkDataFetcherProtocol {
 		}.resume()
 	}
 }
-
 
 final class NetworkDataFetcher: NetworkServiceProtocol {
 	let networkService = NetworkService()
