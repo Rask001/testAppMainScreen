@@ -10,8 +10,11 @@ import UIKit
 final class MainHeaderView: UIView {
   let collectionView = CollectionView()
   let scrollView = UIScrollView()
+	weak var mainScreen: MainScreen?
 	private let stackView = UIStackView()
 	private var lastSelectedButton = UIButton()
+	private var tagButton = 0
+	private var sectionNumber = 0
 	private var buttonCategoryArray = [Constants.burgers, Constants.combo, Constants.deserts, Constants.drinks]
 	var complitionSender: ((Int) -> ())?
 	
@@ -23,6 +26,7 @@ final class MainHeaderView: UIView {
 		setupStackView()
 		createScrollView()
 		setupScrollView()
+		
 	}
 	required init?(coder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
@@ -74,6 +78,7 @@ extension MainHeaderView {
 		sender.isSelected = true
 		sender.backgroundColor = Constants.borderColor20
 		sender.layer.borderWidth = 0
+		tagButton = sender.tag
 		getSenderTag(sender: sender)
 	}
 	
