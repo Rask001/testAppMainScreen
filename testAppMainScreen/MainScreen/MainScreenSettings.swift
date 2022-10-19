@@ -21,7 +21,7 @@ extension MainScreen {
 		tableView.separatorStyle = .singleLine
 		tableView.rowHeight = Constants.tableViewRowHeight
 		tableView.isScrollEnabled = true
-		tableView.allowsSelection = false
+		tableView.allowsSelection = true
 		return tableView
 	}
 	

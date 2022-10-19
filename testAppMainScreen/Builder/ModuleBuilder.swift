@@ -9,6 +9,7 @@ import UIKit
 
 protocol Builder {
 	static func createMainScreen() -> UIViewController
+	static func createDetailScreen(product: Product?) -> UIViewController
 }
 
 class ModuleBuilder: Builder {
@@ -33,4 +34,14 @@ class ModuleBuilder: Builder {
 		view.presenter = presenter
 		return view
 	}
+	
+	static func createDetailScreen(product: Product?) -> UIViewController {
+		let view = DetailScreen()
+		let networkService = NetworkDataFetcher()
+		let presenter = DetailPresenter(view: view,
+																		networkService: networkService, product: product)
+		view.presenter = presenter
+		return view
+	}
+	
 }

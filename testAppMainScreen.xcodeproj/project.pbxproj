@@ -10,7 +10,6 @@
 		3A328FB528F8B2CB0078FFEA /* OtherScreens.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A328FB428F8B2CB0078FFEA /* OtherScreens.swift */; };
 		3A328FB928F9AFD70078FFEA /* ProductModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A328FB828F9AFD70078FFEA /* ProductModel.swift */; };
 		3A328FBB28F9DF780078FFEA /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A328FBA28F9DF780078FFEA /* NetworkService.swift */; };
-		3A328FC728FC91610078FFEA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3A328FC628FC91610078FFEA /* Assets.xcassets */; };
 		3A328FC928FDA0BC0078FFEA /* MainHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A328FC828FDA0BB0078FFEA /* MainHeaderView.swift */; };
 		3A3AE15F28F823DB00618442 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A3AE15E28F823DB00618442 /* AppDelegate.swift */; };
 		3A3AE16128F823DB00618442 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A3AE16028F823DB00618442 /* SceneDelegate.swift */; };
@@ -22,6 +21,10 @@
 		3A79C7E428FEEBFE00549648 /* ModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A79C7E328FEEBFE00549648 /* ModuleBuilder.swift */; };
 		3A79C7E728FF297700549648 /* Animations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A79C7E628FF297700549648 /* Animations.swift */; };
 		3A79C7E928FF3B1F00549648 /* MainScreenSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A79C7E828FF3B1F00549648 /* MainScreenSettings.swift */; };
+		3A79C7EB28FF429100549648 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3A79C7EA28FF429100549648 /* Assets.xcassets */; };
+		3A79C7ED28FFBC7300549648 /* DetailPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A79C7EC28FFBC7300549648 /* DetailPresenter.swift */; };
+		3A79C7F128FFC00300549648 /* DetailScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A79C7F028FFC00300549648 /* DetailScreen.swift */; };
+		3A79C7F328FFC29600549648 /* DetailScreenSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A79C7F228FFC29600549648 /* DetailScreenSetting.swift */; };
 		3A9BAB7228F85357007B3394 /* CollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9BAB7128F85357007B3394 /* CollectionView.swift */; };
 		3A9BAB7628F8559E007B3394 /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9BAB7528F8559E007B3394 /* CollectionViewCell.swift */; };
 		3A9BAB7928F85C31007B3394 /* CollectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9BAB7828F85C31007B3394 /* CollectionModel.swift */; };
@@ -33,7 +36,6 @@
 		3A328FB428F8B2CB0078FFEA /* OtherScreens.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherScreens.swift; sourceTree = "<group>"; };
 		3A328FB828F9AFD70078FFEA /* ProductModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductModel.swift; sourceTree = "<group>"; };
 		3A328FBA28F9DF780078FFEA /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
-		3A328FC628FC91610078FFEA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = "../../../../../../Library/Mobile Documents/com~apple~CloudDocs/testApp/testAppMainScreen/testAppMainScreen/Services/Assets.xcassets"; sourceTree = "<group>"; };
 		3A328FC828FDA0BB0078FFEA /* MainHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainHeaderView.swift; sourceTree = "<group>"; };
 		3A3AE15B28F823DB00618442 /* testAppMainScreen.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = testAppMainScreen.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A3AE15E28F823DB00618442 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -47,6 +49,10 @@
 		3A79C7E328FEEBFE00549648 /* ModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModuleBuilder.swift; sourceTree = "<group>"; };
 		3A79C7E628FF297700549648 /* Animations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Animations.swift; sourceTree = "<group>"; };
 		3A79C7E828FF3B1F00549648 /* MainScreenSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenSettings.swift; sourceTree = "<group>"; };
+		3A79C7EA28FF429100549648 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = testAppMainScreen/Assets.xcassets; sourceTree = SOURCE_ROOT; };
+		3A79C7EC28FFBC7300549648 /* DetailPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPresenter.swift; sourceTree = "<group>"; };
+		3A79C7F028FFC00300549648 /* DetailScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailScreen.swift; sourceTree = "<group>"; };
+		3A79C7F228FFC29600549648 /* DetailScreenSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailScreenSetting.swift; sourceTree = "<group>"; };
 		3A9BAB7128F85357007B3394 /* CollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionView.swift; sourceTree = "<group>"; };
 		3A9BAB7528F8559E007B3394 /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
 		3A9BAB7828F85C31007B3394 /* CollectionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionModel.swift; sourceTree = "<group>"; };
@@ -109,7 +115,7 @@
 		3A328FC228FAB5190078FFEA /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				3A328FC628FC91610078FFEA /* Assets.xcassets */,
+				3A79C7EA28FF429100549648 /* Assets.xcassets */,
 				3A3AE16928F823DD00618442 /* LaunchScreen.storyboard */,
 				3A3AE16C28F823DD00618442 /* Info.plist */,
 			);
@@ -146,6 +152,7 @@
 				3A9BAB7028F85309007B3394 /* ProductCell */,
 				3A328FB328F8B29D0078FFEA /* OtherScreen */,
 				3A328FC228FAB5190078FFEA /* Services */,
+				3A79C7EF28FFBFA300549648 /* DetailScreen */,
 			);
 			path = testAppMainScreen;
 			sourceTree = "<group>";
@@ -164,6 +171,16 @@
 				3A79C7E628FF297700549648 /* Animations.swift */,
 			);
 			path = Animations;
+			sourceTree = "<group>";
+		};
+		3A79C7EF28FFBFA300549648 /* DetailScreen */ = {
+			isa = PBXGroup;
+			children = (
+				3A79C7EC28FFBC7300549648 /* DetailPresenter.swift */,
+				3A79C7F028FFC00300549648 /* DetailScreen.swift */,
+				3A79C7F228FFC29600549648 /* DetailScreenSetting.swift */,
+			);
+			path = DetailScreen;
 			sourceTree = "<group>";
 		};
 		3A9BAB7028F85309007B3394 /* ProductCell */ = {
@@ -260,7 +277,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3A3AE16B28F823DD00618442 /* LaunchScreen.storyboard in Resources */,
-				3A328FC728FC91610078FFEA /* Assets.xcassets in Resources */,
+				3A79C7EB28FF429100549648 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -271,6 +288,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3A79C7F128FFC00300549648 /* DetailScreen.swift in Sources */,
+				3A79C7F328FFC29600549648 /* DetailScreenSetting.swift in Sources */,
 				3A3AE16328F823DB00618442 /* MainScreen.swift in Sources */,
 				3A9BAB8328F8AD3E007B3394 /* TabBarController.swift in Sources */,
 				3A79C7E728FF297700549648 /* Animations.swift in Sources */,
@@ -281,6 +300,7 @@
 				3A3AE17528F8285C00618442 /* CustomCell.swift in Sources */,
 				3A9BAB7928F85C31007B3394 /* CollectionModel.swift in Sources */,
 				3A79C7E928FF3B1F00549648 /* MainScreenSettings.swift in Sources */,
+				3A79C7ED28FFBC7300549648 /* DetailPresenter.swift in Sources */,
 				3A328FBB28F9DF780078FFEA /* NetworkService.swift in Sources */,
 				3A328FC928FDA0BC0078FFEA /* MainHeaderView.swift in Sources */,
 				3ACEE00F28FEB8A8002A61DD /* MainPresenter.swift in Sources */,

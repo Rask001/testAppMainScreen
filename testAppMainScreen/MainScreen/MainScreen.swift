@@ -86,6 +86,13 @@ extension MainScreen: UITableViewDelegate, UITableViewDataSource {
 		print(section)
 	}
 	
+	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		print("indexPath: \(indexPath.row)")
+		let product = presenter.sectionStruct[indexPath.section].row[indexPath.row]
+		let detailScreen = ModuleBuilder.createDetailScreen(product: product)
+		navigationController?.present(detailScreen, animated: true)
+	}
+	
 	func numberOfSections(in tableView: UITableView) -> Int {
 		presenter.sectionStruct.count
 	}
