@@ -1,4 +1,4 @@
-![5 8-inch Screenshot 1](https://user-images.githubusercontent.com/97259692/196936653-3cc67bac-7944-413f-b518-d1e0066b9aea.jpg)
+![  dd ](https://user-images.githubusercontent.com/97259692/196940025-bce371ae-688c-47ac-bafd-3a0ef1903557.png)
 
 Главный экран приложения по заказу еды  
 При нажатии на категорию происходит скролл таблицы именно к данной категории  
