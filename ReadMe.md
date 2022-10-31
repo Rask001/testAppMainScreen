@@ -1,4 +1,3 @@
-![  dd ](https://user-images.githubusercontent.com/97259692/196940025-bce371ae-688c-47ac-bafd-3a0ef1903557.png)
 
 Главный экран приложения по заказу еды  
 При нажатии на категорию происходит скролл таблицы именно к данной категории  
@@ -13,3 +12,6 @@
 4. CoreAnimation
 5. JSON
 6. URLSession
+
+#код в процессе рефакторинга
+![  dd ](https://user-images.githubusercontent.com/97259692/196940025-bce371ae-688c-47ac-bafd-3a0ef1903557.png)
